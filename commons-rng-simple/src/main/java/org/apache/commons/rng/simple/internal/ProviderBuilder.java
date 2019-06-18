@@ -37,6 +37,8 @@ import org.apache.commons.rng.core.source32.XoRoShiRo64Star;
 import org.apache.commons.rng.core.source32.XoRoShiRo64StarStar;
 import org.apache.commons.rng.core.source32.XoShiRo128Plus;
 import org.apache.commons.rng.core.source32.XoShiRo128StarStar;
+import org.apache.commons.rng.core.source32.PcgXshRr32;
+import org.apache.commons.rng.core.source32.PcgXshRs32;
 import org.apache.commons.rng.core.source64.SplitMix64;
 import org.apache.commons.rng.core.source64.XorShift1024Star;
 import org.apache.commons.rng.core.source64.XorShift1024StarPhi;
@@ -48,7 +50,7 @@ import org.apache.commons.rng.core.source64.XoShiRo256Plus;
 import org.apache.commons.rng.core.source64.XoShiRo256StarStar;
 import org.apache.commons.rng.core.source64.XoShiRo512Plus;
 import org.apache.commons.rng.core.source64.XoShiRo512StarStar;
-
+import org.apache.commons.rng.core.source64.PcgRxsMXs64;
 /**
  * RNG builder.
  * <p>
@@ -220,7 +222,19 @@ public final class ProviderBuilder {
         /** Source of randomness is {@link XoShiRo512StarStar}. */
         XO_SHI_RO_512_SS(XoShiRo512StarStar.class,
                          8,
-                         NativeSeedType.LONG_ARRAY);
+                         NativeSeedType.LONG_ARRAY),
+        /** Source of randomness is {@link PcgXshRr32}. */
+        PCG_XSH_RR_32(PcgXshRr32.class,
+                2,
+                NativeSeedType.LONG_ARRAY),
+        /** Source of randomness is {@link PcgXshRs32}. */
+        PCG_XSH_RS_32(PcgXshRs32.class,
+                2,
+                NativeSeedType.LONG_ARRAY),
+        /** Source of randomness is {@link PcgXshRs32}. */
+        PCG_RXS_M_XS_64(PcgRxsMXs64.class,
+                2,
+                NativeSeedType.LONG_ARRAY);
 
         /** Source type. */
         private final Class<? extends UniformRandomProvider> rng;

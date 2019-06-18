@@ -87,6 +87,9 @@ public abstract class BaselineSources {
             "XO_SHI_RO_256_SS",
             "XO_SHI_RO_512_PLUS",
             "XO_SHI_RO_512_SS",
+            "PCG_XSH_RR_32",
+            "PCG_XSH_RS_32",
+            "PCG_RXS_M_XS_64",
             })
     private String randomSourceName;
 
