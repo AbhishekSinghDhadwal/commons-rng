@@ -61,7 +61,6 @@ public abstract class BaselineSources {
      * is in the declared order of {@link RandomSource}.</p>
      */
     @Param({BASELINE,
-            "KnuthLewisLCG",
             "JDK",
             "WELL_512_A",
             "WELL_1024_A",
@@ -88,6 +87,7 @@ public abstract class BaselineSources {
             "XO_SHI_RO_256_SS",
             "XO_SHI_RO_512_PLUS",
             "XO_SHI_RO_512_SS",
+            "KNUTH_LEWIS_LCG",
             })
     private String randomSourceName;
 

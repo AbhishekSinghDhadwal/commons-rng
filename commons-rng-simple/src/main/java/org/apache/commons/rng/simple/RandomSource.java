@@ -164,7 +164,7 @@ public enum RandomSource {
      *  <li>Native seed size: 1.</li>
      * </ul>
      */
-    KnuthLewisLCG(ProviderBuilder.RandomSourceInternal.KnuthLewisLCG),
+    KNUTH_LEWIS_LCG(ProviderBuilder.RandomSourceInternal.KnuthLewisLCG),
     /**
      * Source of randomness is {@link org.apache.commons.rng.core.source32.JDKRandom}.
      * <ul>

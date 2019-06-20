@@ -110,7 +110,7 @@ public final class ProviderBuilder {
      */
     public enum RandomSourceInternal {
         /** Source of randomness is {@link KnuthLewisLCG}. */
-        KnuthLewisLCG(KnuthLewisLCG.class,
+        KNUTH_LEWIS_LCG(KnuthLewisLCG.class,
                 1,
                 NativeSeedType.INT),
         /** Source of randomness is {@link JDKRandom}. */
