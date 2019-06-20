@@ -39,7 +39,8 @@ public class RandomSourceValues {
      * the default set will encompass all the enum values, including those that require
      * additional constructor arguments. So this list is maintained manually.</p>
      */
-    @Param({"JDK",
+    @Param({"KnuthLewisLCG",
+            "JDK",
             "WELL_512_A",
             "WELL_1024_A",
             "WELL_19937_A",

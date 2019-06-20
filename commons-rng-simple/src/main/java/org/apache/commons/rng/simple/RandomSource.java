@@ -158,6 +158,14 @@ import org.apache.commons.rng.simple.internal.SeedFactory;
  */
 public enum RandomSource {
     /**
+     * Source of randomness is {@link org.apache.commons.rng.core.source32.KnuthLewisLCG}.
+     * <ul>
+     *  <li>Native seed type: {@code Int}.</li>
+     *  <li>Native seed size: 1.</li>
+     * </ul>
+     */
+    KnuthLewisLCG(ProviderBuilder.RandomSourceInternal.KnuthLewisLCG),
+    /**
      * Source of randomness is {@link org.apache.commons.rng.core.source32.JDKRandom}.
      * <ul>
      *  <li>Native seed type: {@code Long}.</li>

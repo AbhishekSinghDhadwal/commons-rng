@@ -16,38 +16,39 @@
  */
 package org.apache.commons.rng.simple.internal;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import org.apache.commons.rng.UniformRandomProvider;
 import org.apache.commons.rng.RestorableUniformRandomProvider;
+import org.apache.commons.rng.UniformRandomProvider;
+import org.apache.commons.rng.core.source32.ISAACRandom;
 import org.apache.commons.rng.core.source32.JDKRandom;
-import org.apache.commons.rng.core.source32.Well512a;
+import org.apache.commons.rng.core.source32.KISSRandom;
+import org.apache.commons.rng.core.source32.KnuthLewisLCG;
+import org.apache.commons.rng.core.source32.MersenneTwister;
+import org.apache.commons.rng.core.source32.MultiplyWithCarry256;
 import org.apache.commons.rng.core.source32.Well1024a;
 import org.apache.commons.rng.core.source32.Well19937a;
 import org.apache.commons.rng.core.source32.Well19937c;
 import org.apache.commons.rng.core.source32.Well44497a;
 import org.apache.commons.rng.core.source32.Well44497b;
-import org.apache.commons.rng.core.source32.ISAACRandom;
-import org.apache.commons.rng.core.source32.MersenneTwister;
-import org.apache.commons.rng.core.source32.MultiplyWithCarry256;
-import org.apache.commons.rng.core.source32.KISSRandom;
+import org.apache.commons.rng.core.source32.Well512a;
 import org.apache.commons.rng.core.source32.XoRoShiRo64Star;
 import org.apache.commons.rng.core.source32.XoRoShiRo64StarStar;
 import org.apache.commons.rng.core.source32.XoShiRo128Plus;
 import org.apache.commons.rng.core.source32.XoShiRo128StarStar;
-import org.apache.commons.rng.core.source64.SplitMix64;
-import org.apache.commons.rng.core.source64.XorShift1024Star;
-import org.apache.commons.rng.core.source64.XorShift1024StarPhi;
-import org.apache.commons.rng.core.source64.TwoCmres;
 import org.apache.commons.rng.core.source64.MersenneTwister64;
+import org.apache.commons.rng.core.source64.SplitMix64;
+import org.apache.commons.rng.core.source64.TwoCmres;
 import org.apache.commons.rng.core.source64.XoRoShiRo128Plus;
 import org.apache.commons.rng.core.source64.XoRoShiRo128StarStar;
 import org.apache.commons.rng.core.source64.XoShiRo256Plus;
 import org.apache.commons.rng.core.source64.XoShiRo256StarStar;
 import org.apache.commons.rng.core.source64.XoShiRo512Plus;
 import org.apache.commons.rng.core.source64.XoShiRo512StarStar;
+import org.apache.commons.rng.core.source64.XorShift1024Star;
+import org.apache.commons.rng.core.source64.XorShift1024StarPhi;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * RNG builder.
@@ -108,6 +109,10 @@ public final class ProviderBuilder {
      * Identifiers of the generators.
      */
     public enum RandomSourceInternal {
+        /** Source of randomness is {@link KnuthLewisLCG}. */
+        KnuthLewisLCG(KnuthLewisLCG.class,
+                1,
+                NativeSeedType.INT),
         /** Source of randomness is {@link JDKRandom}. */
         JDK(JDKRandom.class,
             1,
