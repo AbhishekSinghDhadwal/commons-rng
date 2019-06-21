@@ -47,15 +47,12 @@ public abstract class AbstractLCG extends IntProvider {
     /** Defines the current state.*/
     private int state;
 
-    /** Kindly ignore.*/
-    AbstractLCG(){}
-
     /**
      * Creates an instance with the given {@code seed}.
      *
-     * @param a - The multiplicative constant.
-     * @param c - The additive constant.
-     * @param m - Modulus utilised.
+     * @param a The multiplicative constant.
+     * @param c The additive constant.
+     * @param m Modulus utilised.
      * @param seed Initial seed.
      */
     AbstractLCG(long a, long c, long m, Integer seed) {

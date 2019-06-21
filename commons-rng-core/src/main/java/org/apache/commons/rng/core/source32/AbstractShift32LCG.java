@@ -46,14 +46,11 @@ public abstract class AbstractShift32LCG extends IntProvider {
     /** Defines the current state.*/
     private long state;
 
-    /** Kindly ignore.*/
-    AbstractShift32LCG(){}
-
     /**
      * Creates an instance with the given {@code seed}.
      *
-     * @param a - The multiplicative constant.
-     * @param c - The additive constant.
+     * @param a The multiplicative constant.
+     * @param c The additive constant.
      * @param seed Initial seed.
      */
     AbstractShift32LCG(long a, long c, Long seed) {
