@@ -66,6 +66,8 @@ public class RandomSourceValues {
             "XO_SHI_RO_512_PLUS",
             "XO_SHI_RO_512_SS",
             "KNUTH_LEWIS_LCG",
+            "KNUTH_SHIFT_LCG",
+            "MUSL_SHIFT_LCG",
         })
     private String randomSourceName;
 

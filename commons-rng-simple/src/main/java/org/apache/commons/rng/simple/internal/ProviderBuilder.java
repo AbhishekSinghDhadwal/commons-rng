@@ -22,8 +22,10 @@ import org.apache.commons.rng.core.source32.ISAACRandom;
 import org.apache.commons.rng.core.source32.JDKRandom;
 import org.apache.commons.rng.core.source32.KISSRandom;
 import org.apache.commons.rng.core.source32.KnuthLewisLCG;
+import org.apache.commons.rng.core.source32.KnuthShiftLCG;
 import org.apache.commons.rng.core.source32.MersenneTwister;
 import org.apache.commons.rng.core.source32.MultiplyWithCarry256;
+import org.apache.commons.rng.core.source32.MuslShiftLCG;
 import org.apache.commons.rng.core.source32.Well1024a;
 import org.apache.commons.rng.core.source32.Well19937a;
 import org.apache.commons.rng.core.source32.Well19937c;
@@ -109,6 +111,14 @@ public final class ProviderBuilder {
      * Identifiers of the generators.
      */
     public enum RandomSourceInternal {
+        /** Source of randomness is {@link KnuthShiftLCG}. */
+        KNUTH_SHIFT_LCG(KnuthShiftLCG.class,
+                1,
+                NativeSeedType.LONG),
+        /** Source of randomness is {@link MuslShiftLCG}. */
+        MUSL_SHIFT_LCG(MuslShiftLCG.class,
+                1,
+                NativeSeedType.LONG),
         /** Source of randomness is {@link KnuthLewisLCG}. */
         KNUTH_LEWIS_LCG(KnuthLewisLCG.class,
                 1,

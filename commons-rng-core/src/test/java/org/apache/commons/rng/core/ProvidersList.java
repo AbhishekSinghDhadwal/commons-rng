@@ -22,8 +22,10 @@ import org.apache.commons.rng.core.source32.ISAACRandom;
 import org.apache.commons.rng.core.source32.JDKRandom;
 import org.apache.commons.rng.core.source32.KISSRandom;
 import org.apache.commons.rng.core.source32.KnuthLewisLCG;
+import org.apache.commons.rng.core.source32.KnuthShiftLCG;
 import org.apache.commons.rng.core.source32.MersenneTwister;
 import org.apache.commons.rng.core.source32.MultiplyWithCarry256;
+import org.apache.commons.rng.core.source32.MuslShiftLCG;
 import org.apache.commons.rng.core.source32.Well1024a;
 import org.apache.commons.rng.core.source32.Well19937a;
 import org.apache.commons.rng.core.source32.Well19937c;
@@ -80,6 +82,8 @@ public final class ProvidersList {
 
         try {
             // "int"-based RNGs.
+            add(LIST32, new KnuthShiftLCG(g.nextLong()));
+            add(LIST32, new MuslShiftLCG(g.nextLong()));
             add(LIST32, new KnuthLewisLCG(g.nextInt()));
             add(LIST32, new JDKRandom(g.nextLong()));
             add(LIST32, new MersenneTwister(new int[] {g.nextInt(), g.nextInt(), g.nextInt()}));

@@ -158,6 +158,22 @@ import org.apache.commons.rng.simple.internal.SeedFactory;
  */
 public enum RandomSource {
     /**
+     * Source of randomness is {@link org.apache.commons.rng.core.source32.KnuthShiftLCG}.
+     * <ul>
+     *  <li>Native seed type: {@code Long}.</li>
+     *  <li>Native seed size: 1.</li>
+     * </ul>
+     */
+    KNUTH_SHIFT_LCG(ProviderBuilder.RandomSourceInternal.KNUTH_SHIFT_LCG),
+    /**
+     * Source of randomness is {@link org.apache.commons.rng.core.source32.MuslShiftLCG}.
+     * <ul>
+     *  <li>Native seed type: {@code Long}.</li>
+     *  <li>Native seed size: 1.</li>
+     * </ul>
+     */
+    MUSL_SHIFT_LCG(ProviderBuilder.RandomSourceInternal.MUSL_SHIFT_LCG),
+    /**
      * Source of randomness is {@link org.apache.commons.rng.core.source32.KnuthLewisLCG}.
      * <ul>
      *  <li>Native seed type: {@code Int}.</li>
