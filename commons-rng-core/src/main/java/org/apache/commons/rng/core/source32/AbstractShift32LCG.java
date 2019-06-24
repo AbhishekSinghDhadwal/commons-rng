@@ -67,9 +67,9 @@ public abstract class AbstractShift32LCG extends IntProvider {
          * Note : There is no utilisation of the modulus m due to the cyclic properties
          * of the long data type, resulting in a naturally occurring mod 2^64
          */
-        state = (a * state + c) ;
+        state = a * state + c;
 
-        return (int) (state >>> 32) ;
+        return (int) (state >>> 32);
     }
 
     /** {@inheritDoc} */

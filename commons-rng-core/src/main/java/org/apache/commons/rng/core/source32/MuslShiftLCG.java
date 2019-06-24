@@ -29,8 +29,12 @@ package org.apache.commons.rng.core.source32;
 
 public class MuslShiftLCG extends AbstractShift32LCG {
 
-    public MuslShiftLCG(Long seed)
-    {
+    /**
+     * Creates a new random number generator.
+     *
+     * @param seed Initial seed.
+     */
+    public MuslShiftLCG(Long seed) {
         super(6364136223846793005L, 1, seed);
     }
 

@@ -28,8 +28,12 @@ package org.apache.commons.rng.core.source32;
 
 public class KnuthShiftLCG extends AbstractShift32LCG {
 
-    public KnuthShiftLCG(Long seed)
-    {
+    /**
+     * Creates a new random number generator.
+     *
+     * @param seed Initial seed.
+     */
+    public KnuthShiftLCG(Long seed) {
         super(6364136223846793005L, 1442695040888963407L, seed);
     }
 
