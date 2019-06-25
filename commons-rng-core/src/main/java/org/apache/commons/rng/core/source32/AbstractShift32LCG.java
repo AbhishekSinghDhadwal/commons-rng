@@ -40,9 +40,9 @@ import org.apache.commons.rng.core.util.NumberFactory;
 public abstract class AbstractShift32LCG extends IntProvider {
 
     /** The multiplicative constant - a.*/
-    private long a;
+    private final long a;
     /** The additive constant - c.*/
-    private long c;
+    private final long c;
     /** Defines the current state.*/
     private long state;
 
@@ -87,6 +87,4 @@ public abstract class AbstractShift32LCG extends IntProvider {
         state = NumberFactory.makeLong(d[0]);
         super.setStateInternal(d[1]);
     }
-
-
 }

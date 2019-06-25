@@ -35,9 +35,6 @@ public class KnuthLewisLCG extends AbstractLCG {
      * @param seed Initial seed.
      */
     public KnuthLewisLCG(Integer seed) {
-
         super(1664525, 1013904223, 4294967296L, seed);
-
     }
-
 }

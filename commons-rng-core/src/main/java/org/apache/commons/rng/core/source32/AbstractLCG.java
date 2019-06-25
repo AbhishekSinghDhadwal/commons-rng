@@ -39,11 +39,11 @@ import org.apache.commons.rng.core.util.NumberFactory;
 public abstract class AbstractLCG extends IntProvider {
 
     /** The multiplicative constant - a.*/
-    private long a;
+    private final long a;
     /** The additive constant - c.*/
-    private long c;
+    private final long c;
     /** The modulus utilised - m.*/
-    private long m;
+    private final long m;
     /** Defines the current state.*/
     private int state;
 
@@ -85,6 +85,4 @@ public abstract class AbstractLCG extends IntProvider {
         state = NumberFactory.makeInt(d[0]);
         super.setStateInternal(d[1]);
     }
-
-
 }
