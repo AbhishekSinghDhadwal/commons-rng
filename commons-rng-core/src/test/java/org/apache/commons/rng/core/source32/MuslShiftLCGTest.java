@@ -36,7 +36,7 @@ public class MuslShiftLCGTest {
             0x7bbf4adc, 0xa2efb9d7, 0x889a8094, 0x20e50ff7,
         };
 
-        RandomAssert.assertEquals(expectedSequence, new MuslShiftLCG(0x12DE1B9L));
+        RandomAssert.assertEquals(expectedSequence, new MuslShiftLCG(0x12DE1BAL));
     }
 }
 

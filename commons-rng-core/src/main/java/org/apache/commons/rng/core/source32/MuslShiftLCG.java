@@ -23,6 +23,8 @@ package org.apache.commons.rng.core.source32;
  * as displayed in
  * <a href="https://en.wikipedia.org/wiki/Linear_congruential_generator#Parameters_in_common_use">
  * Wikipedia</a>.
+ * NOTE: the Musl library outputs bits 63-33 inclusive for a 31-bit unsigned integer.
+ * This implementation outputs bits 63-32 inclusive for a 32-bit signed integer.
  *
  * @since NOT RELEASED YET
  */
@@ -35,6 +37,6 @@ public class MuslShiftLCG extends AbstractShift32LCG {
      * @param seed Initial seed.
      */
     public MuslShiftLCG(Long seed) {
-        super(6364136223846793005L, 1, seed);
+        super(6364136223846793005L, 1, seed-1);
     }
 }
