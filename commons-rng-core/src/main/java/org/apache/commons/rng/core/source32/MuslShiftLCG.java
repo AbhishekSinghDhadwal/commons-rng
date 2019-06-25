@@ -37,6 +37,6 @@ public class MuslShiftLCG extends AbstractShift32LCG {
      * @param seed Initial seed.
      */
     public MuslShiftLCG(Long seed) {
-        super(6364136223846793005L, 1, seed-1);
+        super(6364136223846793005L, 1, seed - 1);
     }
 }
