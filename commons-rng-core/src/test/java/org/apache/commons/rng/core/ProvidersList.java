@@ -82,9 +82,6 @@ public final class ProvidersList {
 
         try {
             // "int"-based RNGs.
-            add(LIST32, new KnuthShiftLCG(g.nextLong()));
-            add(LIST32, new MuslShiftLCG(g.nextLong()));
-            add(LIST32, new KnuthLewisLCG(g.nextInt()));
             add(LIST32, new JDKRandom(g.nextLong()));
             add(LIST32, new MersenneTwister(new int[] {g.nextInt(), g.nextInt(), g.nextInt()}));
             add(LIST32, new Well512a(new int[] {g.nextInt(), g.nextInt(), g.nextInt()}));
@@ -100,6 +97,9 @@ public final class ProvidersList {
             add(LIST32, new XoRoShiRo64StarStar(new int[] {g.nextInt(), g.nextInt(), g.nextInt()}));
             add(LIST32, new XoShiRo128Plus(new int[] {g.nextInt(), g.nextInt(), g.nextInt()}));
             add(LIST32, new XoShiRo128StarStar(new int[] {g.nextInt(), g.nextInt(), g.nextInt()}));
+            add(LIST32, new KnuthShiftLCG(g.nextLong()));
+            add(LIST32, new MuslShiftLCG(g.nextLong()));
+            add(LIST32, new KnuthLewisLCG(g.nextInt()));
             // ... add more here.
 
             // "long"-based RNGs.

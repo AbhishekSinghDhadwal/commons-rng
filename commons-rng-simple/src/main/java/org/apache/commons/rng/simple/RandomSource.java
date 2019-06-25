@@ -158,30 +158,6 @@ import org.apache.commons.rng.simple.internal.SeedFactory;
  */
 public enum RandomSource {
     /**
-     * Source of randomness is {@link org.apache.commons.rng.core.source32.KnuthShiftLCG}.
-     * <ul>
-     *  <li>Native seed type: {@code Long}.</li>
-     *  <li>Native seed size: 1.</li>
-     * </ul>
-     */
-    KNUTH_SHIFT_LCG(ProviderBuilder.RandomSourceInternal.KNUTH_SHIFT_LCG),
-    /**
-     * Source of randomness is {@link org.apache.commons.rng.core.source32.MuslShiftLCG}.
-     * <ul>
-     *  <li>Native seed type: {@code Long}.</li>
-     *  <li>Native seed size: 1.</li>
-     * </ul>
-     */
-    MUSL_SHIFT_LCG(ProviderBuilder.RandomSourceInternal.MUSL_SHIFT_LCG),
-    /**
-     * Source of randomness is {@link org.apache.commons.rng.core.source32.KnuthLewisLCG}.
-     * <ul>
-     *  <li>Native seed type: {@code Int}.</li>
-     *  <li>Native seed size: 1.</li>
-     * </ul>
-     */
-    KNUTH_LEWIS_LCG(ProviderBuilder.RandomSourceInternal.KNUTH_LEWIS_LCG),
-    /**
      * Source of randomness is {@link org.apache.commons.rng.core.source32.JDKRandom}.
      * <ul>
      *  <li>Native seed type: {@code Long}.</li>
@@ -410,7 +386,32 @@ public enum RandomSource {
      *  <li>Native seed size: 8.</li>
      * </ul>
      */
-    XO_SHI_RO_512_SS(ProviderBuilder.RandomSourceInternal.XO_SHI_RO_512_SS);
+    XO_SHI_RO_512_SS(ProviderBuilder.RandomSourceInternal.XO_SHI_RO_512_SS),
+    /**
+     * Source of randomness is {@link org.apache.commons.rng.core.source32.KnuthShiftLCG}.
+     * <ul>
+     *  <li>Native seed type: {@code Long}.</li>
+     *  <li>Native seed size: 1.</li>
+     * </ul>
+     */
+    KNUTH_SHIFT_LCG(ProviderBuilder.RandomSourceInternal.KNUTH_SHIFT_LCG),
+    /**
+     * Source of randomness is {@link org.apache.commons.rng.core.source32.MuslShiftLCG}.
+     * <ul>
+     *  <li>Native seed type: {@code Long}.</li>
+     *  <li>Native seed size: 1.</li>
+     * </ul>
+     */
+    MUSL_SHIFT_LCG(ProviderBuilder.RandomSourceInternal.MUSL_SHIFT_LCG),
+    /**
+     * Source of randomness is {@link org.apache.commons.rng.core.source32.KnuthLewisLCG}.
+     * <ul>
+     *  <li>Native seed type: {@code Int}.</li>
+     *  <li>Native seed size: 1.</li>
+     * </ul>
+     */
+    KNUTH_LEWIS_LCG(ProviderBuilder.RandomSourceInternal.KNUTH_LEWIS_LCG);
+
 
     /** Internal identifier. */
     private final ProviderBuilder.RandomSourceInternal internalIdentifier;
