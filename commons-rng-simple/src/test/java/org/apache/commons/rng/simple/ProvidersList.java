@@ -56,6 +56,9 @@ public final class ProvidersList {
             add(LIST32, RandomSource.XO_RO_SHI_RO_64_SS, new int[] {78942, 134});
             add(LIST32, RandomSource.XO_SHI_RO_128_PLUS, new int[] {565642, 1234, 4534});
             add(LIST32, RandomSource.XO_SHI_RO_128_SS, new int[] {89, 1234, 6787});
+            add(LIST32, RandomSource.KNUTH_LEWIS_LCG, 1738);
+            add(LIST32, RandomSource.KNUTH_SHIFT_LCG, -9887776666655L);
+            add(LIST32, RandomSource.MUSL_SHIFT_LCG, 122333444455555L);
             // ... add more here.
 
             // "long"-based RNGs.
