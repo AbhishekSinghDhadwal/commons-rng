@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 package org.apache.commons.rng.core.source32;
-
-public abstract class AbstractLFG extends IntProvider {
+// NOTE : DO MAKE ABSTRACT LATER
+public class AbstractLFG extends IntProvider {
 
     /** The short lag.*/
     private int shortlag;
@@ -48,6 +48,7 @@ public abstract class AbstractLFG extends IntProvider {
         state = new int[this.longlag];
         fillState(state, seed);
         mask = (1 << this.w) - 1;
+        i=this.longlag;
     }
 
     /**
@@ -73,5 +74,24 @@ public abstract class AbstractLFG extends IntProvider {
             fill();
         }
         return state[i++]; }
-
+    /*
+    Note : The code ahead is for testing purposes only
+     */
+    public static void main(String[] args) {
+        int[] input = new int[44497];
+        input[0] = 16807;
+        for(int i=1;i<44497;i++)
+        {
+            input[i] =  ( input[i-1] * 16807 ) % 2147483647;
+        }
+        for(int j=0;j<10;j++)
+        {
+            System.out.println(Integer.toHexString(input[j]));
+        }
+        AbstractLFG a = new AbstractLFG(21034, 44497, 48, input);
+        for(int j=0;j<10;j++)
+        {
+            System.out.println(Integer.toHexString(a.next()));
+        }
+    }
 }
