@@ -17,10 +17,10 @@
 package org.apache.commons.rng.core.source32;
 
 /**
- * A Permutated Congruential Generator (PCG) that uses the XSH-RS output transformation
- * to create 32-bit output. This is a member of the PCG suite of generators, a family
- * of simple fast space-efficient statistically good algorithms for random number generation.
- *
+ * A Permutated Congruential Generator (PCG) that uses a 64-bit Linear Congruential
+ * Generator (LCG) combined with the XSH-RR (high xorshift, followed by a random shift) output
+ * transformation to create 32-bit output.
+ * State size is 128 bits and the period is 2<sup>64</sup>.
  *
  * @see <a href="http://www.pcg-random.org/">
  *  PCG, A Family of Better Random Number Generators</a>

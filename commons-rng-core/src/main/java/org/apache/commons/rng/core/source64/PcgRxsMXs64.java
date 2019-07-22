@@ -18,10 +18,10 @@ package org.apache.commons.rng.core.source64;
 
 import org.apache.commons.rng.core.util.NumberFactory;
 /**
- * A Permutated Congruential Generator (PCG) that uses the RXS-M-XS output transformation
- * to create 64-bit output. This is a member of the PCG suite of generators, a family
- * of simple fast space-efficient statistically good algorithms for random number generation.
- *
+ * A Permutated Congruential Generator (PCG) that uses a 64-bit Linear Congruential Generator
+ * (LCG) combined with the RXS-M-XS (random xorshift, multiply, fixed xorshift) output transformation
+ * to create 64-bit output.
+ * State size is 128 bits and the period is 2<sup>64</sup>.
  *
  * @see <a href="http://www.pcg-random.org/">
  *  PCG, A Family of Better Random Number Generators</a>
@@ -29,7 +29,7 @@ import org.apache.commons.rng.core.util.NumberFactory;
  */
 public class PcgRxsMXs64 extends LongProvider {
 
-    /** Size of the state array. */
+    /** Size of the seed array. */
     private static final int SEED_SIZE = 2;
 
     /** Displays the current state. */

@@ -232,7 +232,7 @@ public final class ProviderBuilder {
         PCG_XSH_RS_32(PcgXshRs32.class,
                 2,
                 NativeSeedType.LONG_ARRAY),
-        /** Source of randomness is {@link PcgXshRs32}. */
+        /** Source of randomness is {@link PcgRxsMXs64}. */
         PCG_RXS_M_XS_64(PcgRxsMXs64.class,
                 2,
                 NativeSeedType.LONG_ARRAY);
