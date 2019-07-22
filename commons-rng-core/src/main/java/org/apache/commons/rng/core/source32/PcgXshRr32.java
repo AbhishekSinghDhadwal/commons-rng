@@ -23,14 +23,17 @@ package org.apache.commons.rng.core.source32;
  * State size is 128 bits and the period is 2<sup>64</sup>.
  *
  *
- * @see <a href=http://www.pcg-random.org/">
+ * @see <a href="http://www.pcg-random.org/">
  *  PCG, A Family of Better Random Number Generators</a>
  * @since 1.3
  */
 public class PcgXshRr32 extends AbstractPcg6432 {
     /**
-     * Creates an instance with the given {@code seed}.
+     * Creates a new instance.
+     *
      * @param seed Initial seed.
+     * If the length is larger than 2, only the first 2 elements will
+     * be used; if smaller, the remaining elements will be automatically set.
      */
     public PcgXshRr32(long[] seed) {
         super(seed);
