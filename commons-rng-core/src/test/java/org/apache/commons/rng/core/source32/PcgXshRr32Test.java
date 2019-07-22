@@ -22,11 +22,11 @@ import org.junit.Test;
 
 public class PcgXshRr32Test {
     @Test
-    /*
-     *  Tested with respect to pcg_engines::setseq_xsh_rr_64_32 of the C++ implementation.
-     *  See : http://www.pcg-random.org/download.html#cpp-implementation
-     */
     public void testReferenceCode() {
+        /*
+         *  Tested with respect to pcg_engines::setseq_xsh_rr_64_32 of the C++ implementation.
+         *  See : http://www.pcg-random.org/download.html#cpp-implementation
+         */
         final int[] expectedSequence = {
             0xe860dd24, 0x15d339c0, 0xd9f75c46, 0x00efabb7,
             0xa625e97f, 0xcdeae599, 0x6304e667, 0xbc81be11,

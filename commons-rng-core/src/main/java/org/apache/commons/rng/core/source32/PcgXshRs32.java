@@ -17,8 +17,11 @@
 package org.apache.commons.rng.core.source32;
 
 /**
- * XSH RS -- high xorshift, followed by a random shift.
- * State size is 64 bits and the period is 2<sup>64</sup>.
+ * A Permutated Congruential Generator (PCG) that uses the XSH-RS output transformation
+ * to create 32-bit output. This is a member of the PCG suite of generators, a family
+ * of simple fast space-efficient statistically good algorithms for random number generation.
+ *
+ *
  * @see <a href="http://www.pcg-random.org/">
  *  PCG, A Family of Better Random Number Generators</a>
  * @since 1.3
@@ -28,7 +31,7 @@ public class PcgXshRs32 extends AbstractPcg6432 {
      * Creates an instance with the given {@code seed}.
      * @param seed Initial seed.
      */
-    public PcgXshRs32(long[]seed) {
+    public PcgXshRs32(long[] seed) {
         super(seed);
     }
 

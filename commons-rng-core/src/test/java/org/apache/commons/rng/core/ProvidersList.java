@@ -97,8 +97,8 @@ public final class ProvidersList {
             add(LIST32, new XoRoShiRo64StarStar(new int[] {g.nextInt(), g.nextInt(), g.nextInt()}));
             add(LIST32, new XoShiRo128Plus(new int[] {g.nextInt(), g.nextInt(), g.nextInt()}));
             add(LIST32, new XoShiRo128StarStar(new int[] {g.nextInt(), g.nextInt(), g.nextInt()}));
-            add(LIST32, new PcgXshRr32(new long[] {g.nextLong(), g.nextLong()}));
-            add(LIST32, new PcgXshRs32(new long[] {g.nextLong(), g.nextLong()}));
+            add(LIST32, new PcgXshRr32(new long[] {g.nextLong()}));
+            add(LIST32, new PcgXshRs32(new long[] {g.nextLong()}));
             // ... add more here.
 
             // "long"-based RNGs.
@@ -114,7 +114,7 @@ public final class ProvidersList {
             add(LIST64, new XoShiRo256StarStar(new long[] {g.nextLong(), g.nextLong(), g.nextLong(), g.nextLong()}));
             add(LIST64, new XoShiRo512Plus(new long[] {g.nextLong(), g.nextLong(), g.nextLong(), g.nextLong()}));
             add(LIST64, new XoShiRo512StarStar(new long[] {g.nextLong(), g.nextLong(), g.nextLong(), g.nextLong()}));
-            add(LIST64, new PcgRxsMXs64(new long[] {g.nextLong(), g.nextLong()}));
+            add(LIST64, new PcgRxsMXs64(new long[] {g.nextLong()}));
             // ... add more here.
 
             // Do not modify the remaining statements.

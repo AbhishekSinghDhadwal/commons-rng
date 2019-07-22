@@ -17,10 +17,13 @@
 package org.apache.commons.rng.core.source32;
 
 /**
- * XSH-RR: An xorshift mixes some high-order bits down,
- * then bits 63–59 select a rotate amount to be applied to bits 27–58.
- * State size is 64 bits and the period is 2<sup>64</sup>.
- * @see <a href="http://www.pcg-random.org/">
+ * A Permutated Congruential Generator (PCG) that uses the XSH-RR output transformation
+ * to create 32-bit output. This is a member of the PCG suite of generators, a family
+ * of simple fast space-efficient statistically good algorithms for random number generation.
+ * State size is 128 bits and the period is 2<sup>64</sup>.
+ *
+ *
+ * @see <a href=http://www.pcg-random.org/">
  *  PCG, A Family of Better Random Number Generators</a>
  * @since 1.3
  */

@@ -20,6 +20,8 @@ import org.apache.commons.rng.core.util.NumberFactory;
 /**
  * This class aids in implementation of the PCG suite of generators, a family of
  * simple fast space-efficient statistically good algorithms for random number generation.
+ *
+ *
  * @see <a href="http://www.pcg-random.org/">
  *  PCG, A Family of Better Random Number Generators</a>
  * @since 1.3
@@ -87,6 +89,8 @@ abstract class AbstractPcg6432 extends IntProvider {
     /** {@inheritDoc} */
     @Override
     protected byte[] getStateInternal() {
+        /*This transform is used in the reference PCG code; it prevents restoring from
+         a byte state a non-odd increment that results in a sub-maximal period generator.*/
         return composeStateInternal(NumberFactory.makeByteArray(
                 new long[] {state, increment >>> 1}),
                 super.getStateInternal());
@@ -96,8 +100,7 @@ abstract class AbstractPcg6432 extends IntProvider {
     @Override
     protected void setStateInternal(byte[] s) {
         final byte[][] c = splitStateInternal(s, SEED_SIZE * 8);
-        long[] tempseed;
-        tempseed = NumberFactory.makeLongArray(c[0]);
+        final long[] tempseed = NumberFactory.makeLongArray(c[0]);
         state = tempseed[0];
         increment = tempseed[1] << 1 | 1;
         super.setStateInternal(c[1]);
