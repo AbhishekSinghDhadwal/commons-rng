@@ -169,6 +169,10 @@ public final class DiscreteSamplersList {
             final double[] discreteProbabilities = new double[] {0.1, 0.2, 0.3, 0.4, 0.5};
             add(LIST, discreteProbabilities,
                 MarsagliaTsangWangDiscreteSampler.createDiscreteDistribution(RandomSource.create(RandomSource.XO_SHI_RO_512_PLUS), discreteProbabilities));
+            add(LIST, discreteProbabilities,
+                new GuideTableDiscreteSampler(RandomSource.create(RandomSource.XO_SHI_RO_512_SS), discreteProbabilities));
+            add(LIST, discreteProbabilities,
+                    AliasMethodDiscreteSampler.create(RandomSource.create(RandomSource.KISS), discreteProbabilities));
         } catch (Exception e) {
             // CHECKSTYLE: stop Regexp
             System.err.println("Unexpected exception while creating the list of samplers: " + e);
