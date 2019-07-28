@@ -68,6 +68,8 @@ public class RandomSourceValues {
             "PCG_XSH_RR_32",
             "PCG_XSH_RS_32",
             "PCG_RXS_M_XS_64",
+            "PCG_MCG_XSH_RR_32",
+            "PCG_MCG_XSH_RS_32",
             })
     private String randomSourceName;
 

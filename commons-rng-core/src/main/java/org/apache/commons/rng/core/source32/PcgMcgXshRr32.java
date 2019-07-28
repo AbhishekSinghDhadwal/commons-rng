@@ -17,31 +17,29 @@
 package org.apache.commons.rng.core.source32;
 
 /**
- * A Permutated Congruential Generator (PCG) that uses a 64-bit Linear Congruential
- * Generator (LCG) combined with the XSH-RS (high xorshift, followed by a random shift) output
+ * A Permutated Congruential Generator (PCG) that is composed of a 64-bit Multiplicative Congruential
+ * Generator (MCG) combined with the XSH-RR (high xorshift, followed by a random rotate) output
  * transformation to create 32-bit output.
- * State size is 128 bits and the period is 2<sup>64</sup>.
+ * State size is 64 bits and the period is 2<sup>62</sup>.
  *
  * @see <a href="http://www.pcg-random.org/">
  *  PCG, A Family of Better Random Number Generators</a>
  * @since 1.3
  */
-public class PcgXshRs32 extends AbstractPcg6432 {
+public class PcgMcgXshRr32 extends AbstractPcgMcg6432 {
     /**
      * Creates a new instance.
      *
      * @param seed Initial seed.
-     * If the length is larger than 2, only the first 2 elements will
-     * be used; if smaller, the remaining elements will be automatically set.
      */
-    public PcgXshRs32(long[] seed) {
+    public PcgMcgXshRr32(Long seed) {
         super(seed);
     }
 
     /** {@inheritDoc} */
     @Override
-   protected int transform(long x) {
-        final int count = (int)(x >>> 61);
-        return (int)((x ^ (x >>> 22)) >>> (22 + count));
+    protected int transform(long x) {
+        final int count = (int)(x >>> 59);
+        return Integer.rotateRight((int)((x ^ (x >>> 18)) >>> 27), count);
     }
 }
