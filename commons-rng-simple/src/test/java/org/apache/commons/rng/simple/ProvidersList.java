@@ -76,6 +76,8 @@ public final class ProvidersList {
             add(LIST64, RandomSource.XO_SHI_RO_512_PLUS, new long[] {89932L, -545669L, 4564689L});
             add(LIST64, RandomSource.XO_SHI_RO_512_SS, new long[] {123L, -654654L, 45646789L});
             add(LIST64, RandomSource.PCG_RXS_M_XS_64, new long[] {42088L, 69271L});
+            add(LIST64, RandomSource.RRMXMX_MIX, new long[] {68461351L, -489426L});
+            add(LIST64, RandomSource.RRXMRRXMSX_MIX, new long[] {127798L, 75415L});
             // ... add more here.
 
             // Do not modify the remaining statements.

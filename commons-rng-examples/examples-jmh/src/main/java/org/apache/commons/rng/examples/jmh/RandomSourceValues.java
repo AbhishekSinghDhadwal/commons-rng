@@ -39,7 +39,7 @@ public class RandomSourceValues {
      * the default set will encompass all the enum values, including those that require
      * additional constructor arguments. So this list is maintained manually.</p>
      */
-    @Param({"JDK",
+    @Param({"JDK",/*
             "WELL_512_A",
             "WELL_1024_A",
             "WELL_19937_A",
@@ -47,9 +47,9 @@ public class RandomSourceValues {
             "WELL_44497_A",
             "WELL_44497_B",
             "MT",
-            "ISAAC",
+            "ISAAC",*/
             "SPLIT_MIX_64",
-            "XOR_SHIFT_1024_S",
+            "XOR_SHIFT_1024_S",/*
             "TWO_CMRES",
             "MT_64",
             "MWC_256",
@@ -69,7 +69,9 @@ public class RandomSourceValues {
             "PCG_XSH_RS_32",
             "PCG_RXS_M_XS_64",
             "PCG_MCG_XSH_RR_32",
-            "PCG_MCG_XSH_RS_32",
+            "PCG_MCG_XSH_RS_32",*/
+            "RRMXMX_MIX",
+            "RRXMRRXMSX_MIX",
             })
     private String randomSourceName;
 

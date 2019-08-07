@@ -40,6 +40,8 @@ import org.apache.commons.rng.core.source32.PcgXshRr32;
 import org.apache.commons.rng.core.source32.PcgXshRs32;
 import org.apache.commons.rng.core.source32.PcgMcgXshRr32;
 import org.apache.commons.rng.core.source32.PcgMcgXshRs32;
+import org.apache.commons.rng.core.source64.RrmxmxMix;
+import org.apache.commons.rng.core.source64.RrxmrrxmsxMix;
 import org.apache.commons.rng.core.source64.SplitMix64;
 import org.apache.commons.rng.core.source64.XorShift1024Star;
 import org.apache.commons.rng.core.source64.XorShift1024StarPhi;
@@ -119,6 +121,8 @@ public final class ProvidersList {
             add(LIST64, new XoShiRo512Plus(new long[] {g.nextLong(), g.nextLong(), g.nextLong(), g.nextLong()}));
             add(LIST64, new XoShiRo512StarStar(new long[] {g.nextLong(), g.nextLong(), g.nextLong(), g.nextLong()}));
             add(LIST64, new PcgRxsMXs64(new long[] {g.nextLong()}));
+            add(LIST64, new RrmxmxMix(new long[] {g.nextLong()}));
+            add(LIST64, new RrxmrrxmsxMix(new long[] {g.nextLong()}));
             // ... add more here.
 
             // Do not modify the remaining statements.

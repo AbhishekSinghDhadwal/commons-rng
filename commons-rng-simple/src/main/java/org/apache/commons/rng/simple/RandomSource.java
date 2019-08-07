@@ -426,7 +426,23 @@ public enum RandomSource {
      *  <li>Native seed size: 1.</li>
      * </ul>
      */
-    PCG_MCG_XSH_RS_32(ProviderBuilder.RandomSourceInternal.PCG_MCG_XSH_RS_32);
+    PCG_MCG_XSH_RS_32(ProviderBuilder.RandomSourceInternal.PCG_MCG_XSH_RS_32),
+    /**
+     * Source of randomness is {@link org.apache.commons.rng.core.source64.RrmxmxMix}.
+     * <ul>
+     *  <li>Native seed type: {@code long[]}.</li>
+     *  <li>Native seed size: 2.</li>
+     * </ul>
+     */
+    RRMXMX_MIX(ProviderBuilder.RandomSourceInternal.RRMXMX_MIX),
+    /**
+     * Source of randomness is {@link org.apache.commons.rng.core.source64.RrxmrrxmsxMix}.
+     * <ul>
+     *  <li>Native seed type: {@code long[]}.</li>
+     *  <li>Native seed size: 2.</li>
+     * </ul>
+     */
+    RRXMRRXMSX_MIX(ProviderBuilder.RandomSourceInternal.RRXMRRXMSX_MIX);
 
     /** Internal identifier. */
     private final ProviderBuilder.RandomSourceInternal internalIdentifier;

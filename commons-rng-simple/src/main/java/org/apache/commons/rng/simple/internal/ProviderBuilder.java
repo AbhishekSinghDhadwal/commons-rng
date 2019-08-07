@@ -41,6 +41,8 @@ import org.apache.commons.rng.core.source32.PcgXshRr32;
 import org.apache.commons.rng.core.source32.PcgXshRs32;
 import org.apache.commons.rng.core.source32.PcgMcgXshRr32;
 import org.apache.commons.rng.core.source32.PcgMcgXshRs32;
+import org.apache.commons.rng.core.source64.RrmxmxMix;
+import org.apache.commons.rng.core.source64.RrxmrrxmsxMix;
 import org.apache.commons.rng.core.source64.SplitMix64;
 import org.apache.commons.rng.core.source64.XorShift1024Star;
 import org.apache.commons.rng.core.source64.XorShift1024StarPhi;
@@ -245,7 +247,15 @@ public final class ProviderBuilder {
         /** Source of randomness is {@link PcgMcgXshRs32}. */
         PCG_MCG_XSH_RS_32(PcgMcgXshRs32.class,
                 1,
-                NativeSeedType.LONG);
+                NativeSeedType.LONG),
+        /** Source of randomness is {@link PcgXshRs32}. */
+        RRMXMX_MIX(RrmxmxMix.class,
+                2,
+                NativeSeedType.LONG_ARRAY),
+        /** Source of randomness is {@link PcgXshRs32}. */
+        RRXMRRXMSX_MIX(RrxmrrxmsxMix.class,
+                2,
+                NativeSeedType.LONG_ARRAY);
 
         /** Source type. */
         private final Class<? extends UniformRandomProvider> rng;
