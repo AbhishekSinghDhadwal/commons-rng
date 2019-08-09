@@ -17,7 +17,6 @@
 package org.apache.commons.rng.sampling.distribution;
 
 import org.apache.commons.rng.UniformRandomProvider;
-import org.apache.commons.rng.sampling.SharedStateSampler;
 
 /**
  * Sampler for the <a href="http://mathworld.wolfram.com/PoissonDistribution.html">Poisson distribution</a>.
@@ -52,7 +51,7 @@ import org.apache.commons.rng.sampling.SharedStateSampler;
  */
 public class PoissonSampler
     extends SamplerBase
-    implements DiscreteSampler, SharedStateSampler<PoissonSampler> {
+    implements SharedStateDiscreteSampler {
 
     /**
      * Value for switching sampling algorithm.
@@ -61,9 +60,12 @@ public class PoissonSampler
      */
     static final double PIVOT = 40;
     /** The internal Poisson sampler. */
-    private final DiscreteSampler poissonSamplerDelegate;
+    private final SharedStateDiscreteSampler poissonSamplerDelegate;
 
     /**
+     * This instance delegates sampling. Use the factory method
+     * {@link #of(UniformRandomProvider, double)} to create an optimal sampler.
+     *
      * @param rng Generator of uniformly distributed random numbers.
      * @param mean Mean.
      * @throws IllegalArgumentException if {@code mean <= 0} or
@@ -74,27 +76,7 @@ public class PoissonSampler
         super(null);
 
         // Delegate all work to specialised samplers.
-        // These should check the input arguments.
-        poissonSamplerDelegate = mean < PIVOT ?
-            new SmallMeanPoissonSampler(rng, mean) :
-            new LargeMeanPoissonSampler(rng, mean);
-    }
-
-    /**
-     * @param rng Generator of uniformly distributed random numbers.
-     * @param source Source to copy.
-     */
-    private PoissonSampler(UniformRandomProvider rng,
-            PoissonSampler source) {
-        super(null);
-
-        if (source.poissonSamplerDelegate instanceof SmallMeanPoissonSampler) {
-            poissonSamplerDelegate =
-                ((SmallMeanPoissonSampler)source.poissonSamplerDelegate).withUniformRandomProvider(rng);
-        } else {
-            poissonSamplerDelegate =
-                ((LargeMeanPoissonSampler)source.poissonSamplerDelegate).withUniformRandomProvider(rng);
-        }
+        poissonSamplerDelegate = of(rng, mean);
     }
 
     /** {@inheritDoc} */
@@ -111,7 +93,25 @@ public class PoissonSampler
 
     /** {@inheritDoc} */
     @Override
-    public PoissonSampler withUniformRandomProvider(UniformRandomProvider rng) {
-        return new PoissonSampler(rng, this);
+    public SharedStateDiscreteSampler withUniformRandomProvider(UniformRandomProvider rng) {
+        // Direct return of the optimised sampler
+        return poissonSamplerDelegate.withUniformRandomProvider(rng);
+    }
+
+    /**
+     * Creates a new Poisson distribution sampler.
+     *
+     * @param rng Generator of uniformly distributed random numbers.
+     * @param mean Mean.
+     * @return the sampler
+     * @throws IllegalArgumentException if {@code mean <= 0} or {@code mean >}
+     * {@link Integer#MAX_VALUE}.
+     */
+    public static SharedStateDiscreteSampler of(UniformRandomProvider rng,
+                                                double mean) {
+        // Each sampler should check the input arguments.
+        return mean < PIVOT ?
+            SmallMeanPoissonSampler.of(rng, mean) :
+            LargeMeanPoissonSampler.of(rng, mean);
     }
 }

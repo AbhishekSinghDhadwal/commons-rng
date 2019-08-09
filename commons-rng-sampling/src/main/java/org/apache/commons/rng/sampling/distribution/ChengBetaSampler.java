@@ -17,7 +17,6 @@
 package org.apache.commons.rng.sampling.distribution;
 
 import org.apache.commons.rng.UniformRandomProvider;
-import org.apache.commons.rng.sampling.SharedStateSampler;
 
 /**
  * Utility class implementing Cheng's algorithms for beta distribution sampling.
@@ -36,7 +35,7 @@ import org.apache.commons.rng.sampling.SharedStateSampler;
  */
 public class ChengBetaSampler
     extends SamplerBase
-    implements ContinuousSampler, SharedStateSampler<ChengBetaSampler> {
+    implements SharedStateContinuousSampler {
     /** 1/2. */
     private static final double ONE_HALF = 1d / 2;
     /** 1/4. */
@@ -105,7 +104,7 @@ public class ChengBetaSampler
 
     /** {@inheritDoc} */
     @Override
-    public ChengBetaSampler withUniformRandomProvider(UniformRandomProvider rng) {
+    public SharedStateContinuousSampler withUniformRandomProvider(UniformRandomProvider rng) {
         return new ChengBetaSampler(rng, this);
     }
 
@@ -207,5 +206,20 @@ public class ChengBetaSampler
     private boolean equals(double a,
                            double b) {
         return Math.abs(a - b) <= Double.MIN_VALUE;
+    }
+
+    /**
+     * Creates a new Beta distribution sampler.
+     *
+     * @param rng Generator of uniformly distributed random numbers.
+     * @param alpha Distribution first shape parameter.
+     * @param beta Distribution second shape parameter.
+     * @return the sampler
+     * @throws IllegalArgumentException if {@code alpha <= 0} or {@code beta <= 0}
+     */
+    public static SharedStateContinuousSampler of(UniformRandomProvider rng,
+                                                  double alpha,
+                                                  double beta) {
+        return new ChengBetaSampler(rng, alpha, beta);
     }
 }

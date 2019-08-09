@@ -17,14 +17,13 @@
 package org.apache.commons.rng.sampling.distribution;
 
 import org.apache.commons.rng.UniformRandomProvider;
-import org.apache.commons.rng.sampling.SharedStateSampler;
 
 /**
  * Sampling from a log-normal distribution.
  *
  * @since 1.1
  */
-public class LogNormalSampler implements ContinuousSampler, SharedStateSampler<LogNormalSampler> {
+public class LogNormalSampler implements SharedStateContinuousSampler {
     /** Scale. */
     private final double scale;
     /** Shape. */
@@ -58,13 +57,9 @@ public class LogNormalSampler implements ContinuousSampler, SharedStateSampler<L
      */
     private LogNormalSampler(UniformRandomProvider rng,
                              LogNormalSampler source) {
-        if (!(source.gaussian instanceof SharedStateSampler<?>)) {
-            throw new UnsupportedOperationException("The underlying sampler is not a SharedStateSampler");
-        }
         this.scale = source.scale;
         this.shape = source.shape;
-        this.gaussian = (NormalizedGaussianSampler)
-            ((SharedStateSampler<?>)source.gaussian).withUniformRandomProvider(rng);
+        this.gaussian = InternalUtils.newNormalizedGaussianSampler(source.gaussian, rng);
     }
 
     /** {@inheritDoc} */
@@ -83,14 +78,35 @@ public class LogNormalSampler implements ContinuousSampler, SharedStateSampler<L
      * {@inheritDoc}
      *
      * <p>Note: This function is available if the underlying {@link NormalizedGaussianSampler}
-     * is a {@link SharedStateSampler}. Otherwise a run-time exception is thrown.</p>
+     * is a {@link org.apache.commons.rng.sampling.SharedStateSampler SharedStateSampler}.
+     * Otherwise a run-time exception is thrown.</p>
      *
-     * @throws UnsupportedOperationException if the underlying sampler is not a {@link SharedStateSampler}.
-     * @throws ClassCastException if the underlying {@link SharedStateSampler} does not return a
-     * {@link NormalizedGaussianSampler}.
+     * @throws UnsupportedOperationException if the underlying sampler is not a
+     * {@link org.apache.commons.rng.sampling.SharedStateSampler SharedStateSampler} or
+     * does not return a {@link NormalizedGaussianSampler} when sharing state.
      */
     @Override
-    public LogNormalSampler withUniformRandomProvider(UniformRandomProvider rng) {
+    public SharedStateContinuousSampler withUniformRandomProvider(UniformRandomProvider rng) {
         return new LogNormalSampler(rng, this);
+    }
+
+    /**
+     * Create a new log-normal distribution sampler.
+     *
+     * <p>Note: The shared-state functionality is available if the {@link NormalizedGaussianSampler}
+     * is a {@link org.apache.commons.rng.sampling.SharedStateSampler SharedStateSampler}.
+     * Otherwise a run-time exception will be thrown when the sampler is used to share state.</p>
+     *
+     * @param gaussian N(0,1) generator.
+     * @param scale Scale of the log-normal distribution.
+     * @param shape Shape of the log-normal distribution.
+     * @return the sampler
+     * @throws IllegalArgumentException if {@code scale < 0} or {@code shape <= 0}.
+     * @see #withUniformRandomProvider(UniformRandomProvider)
+     */
+    public static SharedStateContinuousSampler of(NormalizedGaussianSampler gaussian,
+                                                  double scale,
+                                                  double shape) {
+        return new LogNormalSampler(gaussian, scale, shape);
     }
 }

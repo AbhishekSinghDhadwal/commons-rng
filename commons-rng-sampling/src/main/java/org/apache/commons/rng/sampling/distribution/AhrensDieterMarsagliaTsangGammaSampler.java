@@ -17,10 +17,9 @@
 package org.apache.commons.rng.sampling.distribution;
 
 import org.apache.commons.rng.UniformRandomProvider;
-import org.apache.commons.rng.sampling.SharedStateSampler;
 
 /**
- * Sampling from the <a href="http://mathworld.wolfram.com/GammaDistribution.html">Gamma distribution</a>.
+ * Sampling from the <a href="http://mathworld.wolfram.com/GammaDistribution.html">gamma distribution</a>.
  * <ul>
  *  <li>
  *   For {@code 0 < alpha < 1}:
@@ -53,15 +52,15 @@ import org.apache.commons.rng.sampling.SharedStateSampler;
  */
 public class AhrensDieterMarsagliaTsangGammaSampler
     extends SamplerBase
-    implements ContinuousSampler, SharedStateSampler<AhrensDieterMarsagliaTsangGammaSampler> {
+    implements SharedStateContinuousSampler {
     /** The appropriate gamma sampler for the parameters. */
-    private final ContinuousSampler delegate;
+    private final SharedStateContinuousSampler delegate;
 
     /**
      * Base class for a sampler from the Gamma distribution.
      */
     private abstract static class BaseGammaSampler
-        implements ContinuousSampler, SharedStateSampler<ContinuousSampler> {
+        implements SharedStateContinuousSampler {
 
         /** Underlying source of randomness. */
         protected final UniformRandomProvider rng;
@@ -183,7 +182,7 @@ public class AhrensDieterMarsagliaTsangGammaSampler
         }
 
         @Override
-        public ContinuousSampler withUniformRandomProvider(UniformRandomProvider rng) {
+        public SharedStateContinuousSampler withUniformRandomProvider(UniformRandomProvider rng) {
             return new AhrensDieterGammaSampler(rng, this);
         }
     }
@@ -263,12 +262,15 @@ public class AhrensDieterMarsagliaTsangGammaSampler
         }
 
         @Override
-        public ContinuousSampler withUniformRandomProvider(UniformRandomProvider rng) {
+        public SharedStateContinuousSampler withUniformRandomProvider(UniformRandomProvider rng) {
             return new MarsagliaTsangGammaSampler(rng, this);
         }
     }
 
     /**
+     * This instance delegates sampling. Use the factory method
+     * {@link #of(UniformRandomProvider, double, double)} to create an optimal sampler.
+     *
      * @param rng Generator of uniformly distributed random numbers.
      * @param alpha Alpha parameter of the distribution (this is a shape parameter).
      * @param theta Theta parameter of the distribution (this is a scale parameter).
@@ -278,20 +280,7 @@ public class AhrensDieterMarsagliaTsangGammaSampler
                                                   double alpha,
                                                   double theta) {
         super(null);
-        delegate = alpha < 1 ?
-            new AhrensDieterGammaSampler(rng, alpha, theta) :
-            new MarsagliaTsangGammaSampler(rng, alpha, theta);
-    }
-
-    /**
-     * @param rng Generator of uniformly distributed random numbers.
-     * @param source Source to copy.
-     */
-    @SuppressWarnings("unchecked")
-    private AhrensDieterMarsagliaTsangGammaSampler(UniformRandomProvider rng,
-                                                   AhrensDieterMarsagliaTsangGammaSampler source) {
-        super(null);
-        delegate = ((SharedStateSampler<ContinuousSampler>)(source.delegate)).withUniformRandomProvider(rng);
+        delegate = of(rng, alpha, theta);
     }
 
     /** {@inheritDoc} */
@@ -308,7 +297,26 @@ public class AhrensDieterMarsagliaTsangGammaSampler
 
     /** {@inheritDoc} */
     @Override
-    public AhrensDieterMarsagliaTsangGammaSampler withUniformRandomProvider(UniformRandomProvider rng) {
-        return new AhrensDieterMarsagliaTsangGammaSampler(rng, this);
+    public SharedStateContinuousSampler withUniformRandomProvider(UniformRandomProvider rng) {
+        // Direct return of the optimised sampler
+        return delegate.withUniformRandomProvider(rng);
+    }
+
+    /**
+     * Creates a new gamma distribution sampler.
+     *
+     * @param rng Generator of uniformly distributed random numbers.
+     * @param alpha Alpha parameter of the distribution (this is a shape parameter).
+     * @param theta Theta parameter of the distribution (this is a scale parameter).
+     * @return the sampler
+     * @throws IllegalArgumentException if {@code alpha <= 0} or {@code theta <= 0}
+     */
+    public static SharedStateContinuousSampler of(UniformRandomProvider rng,
+                                                  double alpha,
+                                                  double theta) {
+        // Each sampler should check the input arguments.
+        return alpha < 1 ?
+                new AhrensDieterGammaSampler(rng, alpha, theta) :
+                new MarsagliaTsangGammaSampler(rng, alpha, theta);
     }
 }

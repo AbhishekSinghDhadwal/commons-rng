@@ -110,26 +110,26 @@ public class DiscreteSamplersPerformance {
             super.setup();
             final UniformRandomProvider rng = getGenerator();
             if ("DiscreteUniformSampler".equals(samplerType)) {
-                sampler = new DiscreteUniformSampler(rng, -98, 76);
+                sampler = DiscreteUniformSampler.of(rng, -98, 76);
             } else if ("RejectionInversionZipfSampler".equals(samplerType)) {
-                sampler = new RejectionInversionZipfSampler(rng, 43, 2.1);
+                sampler = RejectionInversionZipfSampler.of(rng, 43, 2.1);
             } else if ("SmallMeanPoissonSampler".equals(samplerType)) {
-                sampler = new SmallMeanPoissonSampler(rng, 8.9);
+                sampler = SmallMeanPoissonSampler.of(rng, 8.9);
             } else if ("LargeMeanPoissonSampler".equals(samplerType)) {
                 // Note: Use with a fractional part to the mean includes a small mean sample
-                sampler = new LargeMeanPoissonSampler(rng, 41.7);
+                sampler = LargeMeanPoissonSampler.of(rng, 41.7);
             } else if ("GeometricSampler".equals(samplerType)) {
-                sampler = new GeometricSampler(rng, 0.21);
+                sampler = GeometricSampler.of(rng, 0.21);
             } else if ("MarsagliaTsangWangDiscreteSampler".equals(samplerType)) {
-                sampler = MarsagliaTsangWangDiscreteSampler.createDiscreteDistribution(rng, DISCRETE_PROBABILITIES);
+                sampler = MarsagliaTsangWangDiscreteSampler.Enumerated.of(rng, DISCRETE_PROBABILITIES);
             } else if ("MarsagliaTsangWangPoissonSampler".equals(samplerType)) {
-                sampler = MarsagliaTsangWangDiscreteSampler.createPoissonDistribution(rng, 8.9);
+                sampler = MarsagliaTsangWangDiscreteSampler.Poisson.of(rng, 8.9);
             } else if ("MarsagliaTsangWangBinomialSampler".equals(samplerType)) {
-                sampler = MarsagliaTsangWangDiscreteSampler.createBinomialDistribution(rng, 20, 0.33);
+                sampler = MarsagliaTsangWangDiscreteSampler.Binomial.of(rng, 20, 0.33);
             } else if ("GuideTableDiscreteSampler".equals(samplerType)) {
-                sampler = new GuideTableDiscreteSampler(rng, DISCRETE_PROBABILITIES);
+                sampler = GuideTableDiscreteSampler.of(rng, DISCRETE_PROBABILITIES);
             } else if ("AliasMethodDiscreteSampler".equals(samplerType)) {
-                sampler = AliasMethodDiscreteSampler.create(rng, DISCRETE_PROBABILITIES);
+                sampler = AliasMethodDiscreteSampler.of(rng, DISCRETE_PROBABILITIES);
             }
         }
     }

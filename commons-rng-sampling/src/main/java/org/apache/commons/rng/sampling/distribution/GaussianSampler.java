@@ -17,7 +17,6 @@
 package org.apache.commons.rng.sampling.distribution;
 
 import org.apache.commons.rng.UniformRandomProvider;
-import org.apache.commons.rng.sampling.SharedStateSampler;
 
 /**
  * Sampling from a Gaussian distribution with given mean and
@@ -25,7 +24,7 @@ import org.apache.commons.rng.sampling.SharedStateSampler;
  *
  * @since 1.1
  */
-public class GaussianSampler implements ContinuousSampler, SharedStateSampler<GaussianSampler> {
+public class GaussianSampler implements SharedStateContinuousSampler {
     /** Mean. */
     private final double mean;
     /** standardDeviation. */
@@ -57,13 +56,9 @@ public class GaussianSampler implements ContinuousSampler, SharedStateSampler<Ga
      */
     private GaussianSampler(UniformRandomProvider rng,
                             GaussianSampler source) {
-        if (!(source.normalized instanceof SharedStateSampler<?>)) {
-            throw new UnsupportedOperationException("The underlying sampler is not a SharedStateSampler");
-        }
         this.mean = source.mean;
         this.standardDeviation = source.standardDeviation;
-        this.normalized = (NormalizedGaussianSampler)
-            ((SharedStateSampler<?>)source.normalized).withUniformRandomProvider(rng);
+        this.normalized = InternalUtils.newNormalizedGaussianSampler(source.normalized, rng);
     }
 
     /** {@inheritDoc} */
@@ -82,14 +77,35 @@ public class GaussianSampler implements ContinuousSampler, SharedStateSampler<Ga
      * {@inheritDoc}
      *
      * <p>Note: This function is available if the underlying {@link NormalizedGaussianSampler}
-     * is a {@link SharedStateSampler}. Otherwise a run-time exception is thrown.</p>
+     * is a {@link org.apache.commons.rng.sampling.SharedStateSampler SharedStateSampler}.
+     * Otherwise a run-time exception is thrown.</p>
      *
-     * @throws UnsupportedOperationException if the underlying sampler is not a {@link SharedStateSampler}.
-     * @throws ClassCastException if the underlying {@link SharedStateSampler} does not return a
-     * {@link NormalizedGaussianSampler}.
+     * @throws UnsupportedOperationException if the underlying sampler is not a
+     * {@link org.apache.commons.rng.sampling.SharedStateSampler SharedStateSampler} or
+     * does not return a {@link NormalizedGaussianSampler} when sharing state.
      */
     @Override
-    public GaussianSampler withUniformRandomProvider(UniformRandomProvider rng) {
+    public SharedStateContinuousSampler withUniformRandomProvider(UniformRandomProvider rng) {
         return new GaussianSampler(rng, this);
+    }
+
+    /**
+     * Create a new normalised Gaussian sampler.
+     *
+     * <p>Note: The shared-state functionality is available if the {@link NormalizedGaussianSampler}
+     * is a {@link org.apache.commons.rng.sampling.SharedStateSampler SharedStateSampler}.
+     * Otherwise a run-time exception will be thrown when the sampler is used to share state.</p>
+     *
+     * @param normalized Generator of N(0,1) Gaussian distributed random numbers.
+     * @param mean Mean of the Gaussian distribution.
+     * @param standardDeviation Standard deviation of the Gaussian distribution.
+     * @return the sampler
+     * @throws IllegalArgumentException if {@code standardDeviation <= 0}
+     * @see #withUniformRandomProvider(UniformRandomProvider)
+     */
+    public static SharedStateContinuousSampler of(NormalizedGaussianSampler normalized,
+                                                  double mean,
+                                                  double standardDeviation) {
+        return new GaussianSampler(normalized, mean, standardDeviation);
     }
 }

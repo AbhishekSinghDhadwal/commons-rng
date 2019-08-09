@@ -17,7 +17,6 @@
 package org.apache.commons.rng.sampling.distribution;
 
 import org.apache.commons.rng.UniformRandomProvider;
-import org.apache.commons.rng.sampling.SharedStateSampler;
 
 /**
  * Sampling from an <a href="http://mathworld.wolfram.com/ExponentialDistribution.html">exponential distribution</a>.
@@ -28,7 +27,7 @@ import org.apache.commons.rng.sampling.SharedStateSampler;
  */
 public class AhrensDieterExponentialSampler
     extends SamplerBase
-    implements ContinuousSampler, SharedStateSampler<AhrensDieterExponentialSampler> {
+    implements SharedStateContinuousSampler {
     /**
      * Table containing the constants
      * \( q_i = sum_{j=1}^i (\ln 2)^j / j! = \ln 2 + (\ln 2)^2 / 2 + ... + (\ln 2)^i / i! \)
@@ -139,7 +138,20 @@ public class AhrensDieterExponentialSampler
 
     /** {@inheritDoc} */
     @Override
-    public AhrensDieterExponentialSampler withUniformRandomProvider(UniformRandomProvider rng) {
+    public SharedStateContinuousSampler withUniformRandomProvider(UniformRandomProvider rng) {
         return new AhrensDieterExponentialSampler(rng, this);
+    }
+
+    /**
+     * Create a new exponential distribution sampler.
+     *
+     * @param rng Generator of uniformly distributed random numbers.
+     * @param mean Mean of the distribution.
+     * @return the sampler
+     * @throws IllegalArgumentException if {@code mean <= 0}
+     */
+    public static SharedStateContinuousSampler of(UniformRandomProvider rng,
+                                                  double mean) {
+        return new AhrensDieterExponentialSampler(rng, mean);
     }
 }

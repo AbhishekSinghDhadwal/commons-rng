@@ -31,6 +31,7 @@ import org.apache.commons.rng.core.source32.Well44497a;
 import org.apache.commons.rng.core.source32.Well44497b;
 import org.apache.commons.rng.core.source32.ISAACRandom;
 import org.apache.commons.rng.core.source32.MersenneTwister;
+import org.apache.commons.rng.core.source32.MiddleSquareWeylSequence;
 import org.apache.commons.rng.core.source32.MultiplyWithCarry256;
 import org.apache.commons.rng.core.source32.KISSRandom;
 import org.apache.commons.rng.core.source32.XoRoShiRo64Star;
@@ -245,7 +246,45 @@ public final class ProviderBuilder {
         /** Source of randomness is {@link PcgMcgXshRs32}. */
         PCG_MCG_XSH_RS_32(PcgMcgXshRs32.class,
                 1,
-                NativeSeedType.LONG);
+                NativeSeedType.LONG),
+        /** Source of randomness is {@link MiddleSquareWeylSequence}. */
+        MSWS(MiddleSquareWeylSequence.class,
+             3,
+             NativeSeedType.LONG_ARRAY) {
+            @Override
+            Object createSeed() {
+                return createMswsSeed(SeedFactory.createLong());
+            }
+
+            @Override
+            Object convertSeed(Object seed) {
+                // Allow seeding with primitives to generate a good seed
+                if (seed instanceof Integer) {
+                    return createMswsSeed((Integer) seed);
+                } else if (seed instanceof Long) {
+                    return createMswsSeed((Long) seed);
+                }
+                // Other types (e.g. the native long[]) are handled by the default conversion
+                return super.convertSeed(seed);
+            }
+
+            /**
+             * Creates the full length seed array from the input seed using the method
+             * recommended for the generator. This is a high quality Weyl increment composed
+             * of a hex character permutation.
+             *
+             * @param seed the seed
+             * @return the seed array
+             */
+            private long[] createMswsSeed(long seed) {
+                final long increment = SeedUtils.createLongHexPermutation(new SplitMix64(seed));
+                // The initial state should not be low complexity but the Weyl
+                // state can be any number.
+                final long state = increment;
+                final long weylState = seed;
+                return new long[] {state, weylState, increment};
+            }
+        };
 
         /** Source type. */
         private final Class<? extends UniformRandomProvider> rng;

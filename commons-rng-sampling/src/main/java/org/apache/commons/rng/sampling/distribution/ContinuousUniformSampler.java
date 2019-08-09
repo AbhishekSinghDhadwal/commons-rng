@@ -17,7 +17,6 @@
 package org.apache.commons.rng.sampling.distribution;
 
 import org.apache.commons.rng.UniformRandomProvider;
-import org.apache.commons.rng.sampling.SharedStateSampler;
 
 /**
  * Sampling from a uniform distribution.
@@ -28,7 +27,7 @@ import org.apache.commons.rng.sampling.SharedStateSampler;
  */
 public class ContinuousUniformSampler
     extends SamplerBase
-    implements ContinuousSampler, SharedStateSampler<ContinuousUniformSampler> {
+    implements SharedStateContinuousSampler {
     /** Lower bound. */
     private final double lo;
     /** Higher bound. */
@@ -65,7 +64,21 @@ public class ContinuousUniformSampler
 
     /** {@inheritDoc} */
     @Override
-    public ContinuousUniformSampler withUniformRandomProvider(UniformRandomProvider rng) {
+    public SharedStateContinuousSampler withUniformRandomProvider(UniformRandomProvider rng) {
+        return new ContinuousUniformSampler(rng, lo, hi);
+    }
+
+    /**
+     * Creates a new continuous uniform distribution sampler.
+     *
+     * @param rng Generator of uniformly distributed random numbers.
+     * @param lo Lower bound.
+     * @param hi Higher bound.
+     * @return the sampler
+     */
+    public static SharedStateContinuousSampler of(UniformRandomProvider rng,
+                                                  double lo,
+                                                  double hi) {
         return new ContinuousUniformSampler(rng, lo, hi);
     }
 }

@@ -17,7 +17,6 @@
 package org.apache.commons.rng.sampling.distribution;
 
 import org.apache.commons.rng.UniformRandomProvider;
-import org.apache.commons.rng.sampling.SharedStateSampler;
 
 /**
  * Sampler for the <a href="http://mathworld.wolfram.com/PoissonDistribution.html">Poisson distribution</a>.
@@ -43,7 +42,7 @@ import org.apache.commons.rng.sampling.SharedStateSampler;
  * @since 1.1
  */
 public class SmallMeanPoissonSampler
-    implements DiscreteSampler, SharedStateSampler<SmallMeanPoissonSampler> {
+    implements SharedStateDiscreteSampler {
     /**
      * Pre-compute {@code Math.exp(-mean)}.
      * Note: This is the probability of the Poisson sample {@code P(n=0)}.
@@ -57,7 +56,7 @@ public class SmallMeanPoissonSampler
     /**
      * @param rng  Generator of uniformly distributed random numbers.
      * @param mean Mean.
-     * @throws IllegalArgumentException if {@code mean <= 0} or {@code Math.exp(-mean)} is not positive.
+     * @throws IllegalArgumentException if {@code mean <= 0} or {@code Math.exp(-mean) == 0}
      */
     public SmallMeanPoissonSampler(UniformRandomProvider rng,
                                    double mean) {
@@ -111,7 +110,20 @@ public class SmallMeanPoissonSampler
 
     /** {@inheritDoc} */
     @Override
-    public SmallMeanPoissonSampler withUniformRandomProvider(UniformRandomProvider rng) {
+    public SharedStateDiscreteSampler withUniformRandomProvider(UniformRandomProvider rng) {
         return new SmallMeanPoissonSampler(rng, this);
+    }
+
+    /**
+     * Creates a new sampler for the Poisson distribution.
+     *
+     * @param rng Generator of uniformly distributed random numbers.
+     * @param mean Mean of the distribution.
+     * @return the sampler
+     * @throws IllegalArgumentException if {@code mean <= 0} or {@code Math.exp(-mean) == 0}.
+     */
+    public static SharedStateDiscreteSampler of(UniformRandomProvider rng,
+                                                double mean) {
+        return new SmallMeanPoissonSampler(rng, mean);
     }
 }

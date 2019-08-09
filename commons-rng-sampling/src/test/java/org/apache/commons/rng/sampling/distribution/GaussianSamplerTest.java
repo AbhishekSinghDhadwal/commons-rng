@@ -37,9 +37,7 @@ public class GaussianSamplerTest {
         final NormalizedGaussianSampler gauss = new ZigguratNormalizedGaussianSampler(rng);
         final double mean = 1;
         final double standardDeviation = 0;
-        @SuppressWarnings("unused")
-        final GaussianSampler sampler =
-            new GaussianSampler(gauss, mean, standardDeviation);
+        GaussianSampler.of(gauss, mean, standardDeviation);
     }
 
     /**
@@ -52,9 +50,9 @@ public class GaussianSamplerTest {
         final NormalizedGaussianSampler gauss = new ZigguratNormalizedGaussianSampler(rng1);
         final double mean = 1.23;
         final double standardDeviation = 4.56;
-        final GaussianSampler sampler1 =
-            new GaussianSampler(gauss, mean, standardDeviation);
-        final GaussianSampler sampler2 = sampler1.withUniformRandomProvider(rng2);
+        final SharedStateContinuousSampler sampler1 =
+            GaussianSampler.of(gauss, mean, standardDeviation);
+        final SharedStateContinuousSampler sampler2 = sampler1.withUniformRandomProvider(rng2);
         RandomAssert.assertProduceSameSequence(sampler1, sampler2);
     }
 
@@ -73,8 +71,8 @@ public class GaussianSamplerTest {
         };
         final double mean = 1.23;
         final double standardDeviation = 4.56;
-        final GaussianSampler sampler1 =
-            new GaussianSampler(gauss, mean, standardDeviation);
+        final SharedStateContinuousSampler sampler1 =
+            GaussianSampler.of(gauss, mean, standardDeviation);
         sampler1.withUniformRandomProvider(rng2);
     }
 
@@ -82,14 +80,14 @@ public class GaussianSamplerTest {
      * Test the SharedStateSampler implementation throws if the underlying sampler is
      * a SharedStateSampler that returns an incorrect type.
      */
-    @Test(expected = ClassCastException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testSharedStateSamplerThrowsIfUnderlyingSamplerReturnsWrongSharedState() {
         final UniformRandomProvider rng2 = RandomSource.create(RandomSource.SPLIT_MIX_64, 0L);
         final NormalizedGaussianSampler gauss = new BadSharedStateNormalizedGaussianSampler();
         final double mean = 1.23;
         final double standardDeviation = 4.56;
-        final GaussianSampler sampler1 =
-            new GaussianSampler(gauss, mean, standardDeviation);
+        final SharedStateContinuousSampler sampler1 =
+            GaussianSampler.of(gauss, mean, standardDeviation);
         sampler1.withUniformRandomProvider(rng2);
     }
 
