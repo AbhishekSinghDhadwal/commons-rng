@@ -430,11 +430,27 @@ public enum RandomSource {
     /**
      * Source of randomness is {@link org.apache.commons.rng.core.source32.MiddleSquareWeylSequence}.
      * <ul>
-     *  <li>Native seed type: {@code Long}.</li>
+     *  <li>Native seed type: {@code long[]}.</li>
      *  <li>Native seed size: 3.</li>
      * </ul>
      */
-    MSWS(ProviderBuilder.RandomSourceInternal.MSWS);
+    MSWS(ProviderBuilder.RandomSourceInternal.MSWS),
+    /**
+     * Source of randomness is {@link org.apache.commons.rng.core.source32.SFC32}.
+     * <ul>
+     *  <li>Native seed type: {@code int[]}.</li>
+     *  <li>Native seed size: 3.</li>
+     * </ul>
+     */
+    SFC_32(ProviderBuilder.RandomSourceInternal.SFC_32),
+    /**
+     * Source of randomness is {@link org.apache.commons.rng.core.source64.SFC64}.
+     * <ul>
+     *  <li>Native seed type: {@code long[]}.</li>
+     *  <li>Native seed size: 3.</li>
+     * </ul>
+     */
+    SFC_64(ProviderBuilder.RandomSourceInternal.SFC_64);
 
     /** Internal identifier. */
     private final ProviderBuilder.RandomSourceInternal internalIdentifier;
